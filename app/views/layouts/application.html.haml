@@ -1,11 +1,44 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title FinanceTracker
+    %meta{ content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type' }
+    %title Finance Tracker
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container
+        = link_to 'Finance Tracker', root_path, class: 'navbar-brand'
+        = button_tag type: 'button', class: 'navbar-toggler', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation', data: { target: '#navbarSupportedContent', toggle: 'collapse' } do
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+          %ul.navbar-nav.mr-auto
+            %li.nav-item.active
+              = link_to '#', class: 'nav-link' do
+                Home
+                %span.sr-only (current)
+            %li.nav-item
+              = link_to 'Link', '#', class: 'nav-link'
+            %li.nav-item.dropdown
+              = link_to 'Dropdown', '#', class: 'nav-link dropdown-toggle', id: 'navbarDropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown', role: 'button'
+              .dropdown-menu{ 'aria-labelledby': 'navbarDropdown' }
+                = link_to 'Action', '#', class: 'dropdown-item'
+                = link_to 'Another Action', '#', class: 'dropdown-item'
+                .dropdown-divider
+                = link_to 'Something else here', '#', class: 'dropdown-item'
+            %li.nav-item
+              = link_to 'Disabled', '#', class: 'nav-link disabled', 'aria-disabled': 'true', tabindex: '-1'
+          = form_tag '#', class: 'form-inline my-2 my-lg-0' do
+            = search_field_tag '#', '', class: 'form-control mr-sm-2', 'aria-label': 'Search', placeholder: 'Search'
+            = button_tag 'Search', type: 'submit', class: 'btn btn-outline-success my-2 my-sm-0'
+
+    .container.pt-4
+      - if notice.present?
+        = render 'layouts/flash_message', type: 'primary', message: notice
+
+      - if alert.present?
+        = render 'layouts/flash_message', type: 'danger', message: alert
+
+      = yield
