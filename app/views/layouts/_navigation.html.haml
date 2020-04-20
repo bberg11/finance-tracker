@@ -1,0 +1,21 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container
+    = link_to 'Finance Tracker', root_path, class: 'navbar-brand'
+    - if current_user
+      = button_tag type: 'button', class: 'navbar-toggler', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation', data: { target: '#navbarSupportedContent', toggle: 'collapse' } do
+        %span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        %ul.navbar-nav.mr-auto
+          %li.nav-item{ class: request.path == my_portfolio_path ? ' active' : '' }
+            = link_to 'My Portfolio', my_portfolio_path, class: 'nav-link'
+          %li.nav-item{ class: request.path == my_friends_path ? ' active' : '' }
+            = link_to 'My Friends', my_friends_path, class: 'nav-link'
+          %li.nav-item.dropdown
+            = link_to '#', class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', 'aria-expanded': 'false', 'aria-haspopup': 'true', data: { toggle: 'dropdown' } do
+              = fa_icon 'user'
+              = current_user.full_name.present? ? current_user.full_name : 'Profile'
+            .dropdown-menu{ 'aria-labelledby': 'navbarDropdown' }
+              = link_to edit_user_registration_path, class: 'dropdown-item' do
+                = fa_icon 'edit'
+                Edit profile
+              = link_to 'Logout', destroy_user_session_path, class: 'dropdown-item', method: :delete

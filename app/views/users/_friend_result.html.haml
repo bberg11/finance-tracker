@@ -1,0 +1,22 @@
+.results-block
+  = render 'layouts/messages'
+
+- if @friends
+  .card.card-header.results-block
+    %table.col-md-12
+      %tbody
+        - @friends.each do |friend|
+          %tr
+            %td
+              %strong Name:
+              = friend.full_name
+            %td
+              %strong Email:
+              = friend.email
+            %td
+              %strong Actions:
+              = link_to 'View Profile', user_path(friend), class: 'btn btn-sm btn-success'
+              - if current_user.not_friends_with?(friend.id)
+                = link_to 'Follow friend?', friendships_path(friend: friend), class: 'btn btn-sm btn-success', method: :post
+              - else
+                %span.badge.badge-secondary You are friends

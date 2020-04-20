@@ -1,0 +1,23 @@
+%h2 User Details
+.card.card-header.results-block
+  %table.col-md-12
+    %tbody
+      %tr
+        %td
+          %strong Name:
+          = @user.full_name
+        %td
+          %strong Email:
+          = @user.email
+        %td
+          - if current_user.not_friends_with?(@user.id)
+            = link_to 'Follow friend?', friendships_path(friend: @user), class: 'btn btn-sm btn-success', method: :post
+          - else
+            %span.badge.badge-secondary You are friends
+
+- if !@tracked_stocks.empty?
+  = render 'stocks/list'
+- else
+  %p.lead This user is not tracking any stocks
+
+= link_to 'Back', my_friends_path, class: 'btn btn-primary'

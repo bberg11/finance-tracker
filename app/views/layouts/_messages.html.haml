@@ -1,0 +1,10 @@
+- if notice
+  .alert.alert-success
+    = button_tag type: 'button', class: 'close', 'aria-label': 'Close', data: { dismiss: 'alert' } do
+      %span{ 'aria-hidden': 'true' } ×
+    = notice
+- if alert
+  .alert.alert-danger
+    = button_tag type: 'button', class: 'close', 'aria-label': 'Close', data: { dismiss: 'alert' } do
+      %span{ 'aria-hidden': 'true' } ×
+    = alert

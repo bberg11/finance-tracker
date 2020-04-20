@@ -1,0 +1,18 @@
+.row
+  .col-9
+    %table.table.table-bordered.table-hover
+      %thead
+        %tr
+          %th{:scope => "col"} Email
+          %th{:scope => "col"} First Name
+          %th{:scope => "col"} Last Name
+          %th{:scope => "col"} Actions
+      %tbody
+        - @friends.each do |friend|
+          %tr
+            %td= friend.email
+            %td= friend.first_name
+            %td= friend.last_name
+            %td
+              = link_to 'View Profile', user_path(friend), class: 'btn btn-sm btn-success'
+              = link_to 'Stop following', friendship_path(friend), method: :delete, class: 'btn btn-sm btn-warning', data: { confirm: 'Are you sure?' }
