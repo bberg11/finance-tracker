@@ -1,9 +1,9 @@
-.results-block
+.mb-4
   = render 'layouts/messages'
 
 - if @friends
-  .card.card-header.results-block
-    %table.col-md-12
+  .card.card-header.mb-4.col-9
+    %table
       %tbody
         - @friends.each do |friend|
           %tr
